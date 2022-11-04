@@ -5,14 +5,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import br.com.alura.aluvery.model.Product
-import br.com.alura.aluvery.sampledata.sampleCandies
-import br.com.alura.aluvery.sampledata.sampleDrinks
-import br.com.alura.aluvery.sampledata.sampleProducts
 import br.com.alura.aluvery.sampledata.sampleSections
 import br.com.alura.aluvery.ui.components.CardProductItem
 import br.com.alura.aluvery.ui.components.ProductsSection
@@ -25,7 +20,7 @@ import br.com.alura.aluvery.ui.viewmodels.HomeScreenViewModel
 fun HomeScreen(
     viewModel: HomeScreenViewModel
 ) {
-    val state = viewModel.uiState
+    val state by viewModel.uiState.collectAsState()
     HomeScreen(state = state)
 }
 
@@ -40,9 +35,9 @@ fun HomeScreen(
         SearchTextField(
             searchText = text,
             onSearchChange = state.onSearchChange,
-            Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
+                Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
         )
 
         LazyColumn(
