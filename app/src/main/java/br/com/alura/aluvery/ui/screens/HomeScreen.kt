@@ -21,40 +21,10 @@ import br.com.alura.aluvery.ui.states.HomeScreenUiState
 import br.com.alura.aluvery.ui.theme.AluveryTheme
 import br.com.alura.aluvery.ui.viewmodels.HomeScreenViewModel
 
-
-
 @Composable
 fun HomeScreen(
-    viewModel: HomeScreenViewModel,
-    products: List<Product>
+    viewModel: HomeScreenViewModel
 ) {
-//    val sections = mapOf(
-//        "Todos produtos" to products,
-//        "Promoções" to sampleDrinks + sampleCandies,
-//        "Doces" to sampleCandies,
-//        "Bebidas" to sampleDrinks
-//    )
-//    var text by rememberSaveable {
-//        mutableStateOf("")
-//    }
-//
-//    fun containsInNameOrDescrioption() = { product: Product ->
-//        product.name.contains(
-//            text,
-//            ignoreCase = true,
-//        ) || product.description?.contains(
-//            text,
-//            ignoreCase = true,
-//        ) ?: false
-//    }
-//
-//    val searchedProducts = remember(text, products) {
-//        if (text.isNotBlank()) {
-//            sampleProducts.filter(containsInNameOrDescrioption()) +
-//                    products.filter(containsInNameOrDescrioption())
-//        } else emptyList()
-//    }
-
     val state = viewModel.uiState
     HomeScreen(state = state)
 }
