@@ -5,14 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.Surface
-import br.com.alura.aluvery.dao.ProductDao
 import br.com.alura.aluvery.ui.screens.ProductFormScreen
 import br.com.alura.aluvery.ui.theme.AluveryTheme
 import br.com.alura.aluvery.ui.viewmodels.ProductFormScreenViewModel
 
 class ProductFormActivity : ComponentActivity() {
-
-    private val dao = ProductDao()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,11 +18,10 @@ class ProductFormActivity : ComponentActivity() {
                 Surface {
                     val viewModel: ProductFormScreenViewModel by viewModels()
                     ProductFormScreen(
-                            viewModel = viewModel,
-                            onSaveClick = { product ->
-                                dao.save(product)
-                                finish()
-                            })
+                        viewModel = viewModel,
+                        onSaveClick = {
+                            finish()
+                        })
                 }
             }
         }
