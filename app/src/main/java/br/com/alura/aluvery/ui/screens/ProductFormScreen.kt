@@ -20,175 +20,128 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import br.com.alura.aluvery.R
 import br.com.alura.aluvery.model.Product
+import br.com.alura.aluvery.ui.states.ProductFormUiState
 import br.com.alura.aluvery.ui.theme.AluveryTheme
+import br.com.alura.aluvery.ui.viewmodels.ProductFormScreenViewModel
 import coil.compose.AsyncImage
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
-class ProductFormUiState(
-    val url: String = "",
-    val name: String = "",
-    val price: String = "",
-    val description: String = "",
-    val isShowPreview: Boolean = url.isNotBlank(),
-    val onUrlChange: (String) -> Unit = {},
-    val onNameChange: (String) -> Unit = {},
-    val onDescriptionChange: (String) -> Unit = {},
-    val onPriceChange: (String) -> Unit = {},
-    val onSaveClick: () -> Unit = {},
-)
-
 @Composable
 fun ProductFormScreen(
-    onSaveClick: (Product) -> Unit = {}
+        viewModel: ProductFormScreenViewModel,
+        onSaveClick: (Product) -> Unit = {}
 ) {
-    var name by rememberSaveable {
-        mutableStateOf("")
-    }
-    var url by rememberSaveable {
-        mutableStateOf("")
-    }
-    var price by rememberSaveable {
-        mutableStateOf("")
-    }
-    var description by rememberSaveable {
-        mutableStateOf("")
-    }
-    val formatter = remember {
-        DecimalFormat("#.##")
-    }
+    val state by viewModel.uiState.collectAsState()
     ProductFormScreen(
-        state = ProductFormUiState(
-            url = url,
-            name = name,
-            price = price,
-            description = description,
-            onUrlChange = {
-                url = it
-            },
-            onNameChange = {
-                name = it
-            },
-            onPriceChange = {
-                try {
-                    price = formatter.format(BigDecimal(it))
-                } catch (e: IllegalArgumentException) {
-                    if (it.isBlank()) {
-                        price = it
-                    }
-                }
-            },
-            onDescriptionChange = {
-                description = it
-            },
-            onSaveClick = {
-                val convertedPrice = try {
-                    BigDecimal(price)
-                } catch (e: NumberFormatException) {
-                    BigDecimal.ZERO
-                }
-                val product = Product(
-                    name = name,
-                    image = url,
-                    price = convertedPrice,
-                    description = description
-                )
-                Log.i("ProductFormActivity", "ProductFormScreen: $product")
-                onSaveClick(product)
-            }
-        )
+            state = state
     )
 }
 
+//val convertedPrice = try {
+//                    BigDecimal(price)
+//                } catch (e: NumberFormatException) {
+//                    BigDecimal.ZERO
+//                }
+//                val product = Product(
+//                    name = name,
+//                    image = url,
+//                    price = convertedPrice,
+//                    description = description
+//                )
+//                Log.i("ProductFormActivity", "ProductFormScreen: $product")
+//                onSaveClick(product)
+
 @Composable
 fun ProductFormScreen(
-    state: ProductFormUiState = ProductFormUiState()
+        state: ProductFormUiState = ProductFormUiState()
 ) {
     val url = state.url
     val name = state.name
     val price = state.price
     val description = state.description
     Column(
-        Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+            Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp)
+                    .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Spacer(modifier = Modifier)
         Text(
-            text = "Criando o produto",
-            Modifier.fillMaxWidth(),
-            fontSize = 28.sp,
+                text = "Criando o produto",
+                Modifier.fillMaxWidth(),
+                fontSize = 28.sp,
         )
         if (state.isShowPreview) {
             AsyncImage(
-                model = url, contentDescription = null,
-                Modifier
-                    .fillMaxWidth()
-                    .height(200.dp),
-                contentScale = ContentScale.Crop,
-                placeholder = painterResource(id = R.drawable.placeholder),
-                error = painterResource(id = R.drawable.placeholder)
+                    model = url, contentDescription = null,
+                    Modifier
+                            .fillMaxWidth()
+                            .height(200.dp),
+                    contentScale = ContentScale.Crop,
+                    placeholder = painterResource(id = R.drawable.placeholder),
+                    error = painterResource(id = R.drawable.placeholder)
             )
         }
         TextField(
-            value = url,
-            onValueChange = state.onUrlChange,
-            Modifier.fillMaxWidth(),
-            label = {
-                Text(text = "Url da imagem")
-            },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Uri,
-                imeAction = ImeAction.Next
-            )
+                value = url,
+                onValueChange = state.onUrlChange,
+                Modifier.fillMaxWidth(),
+                label = {
+                    Text(text = "Url da imagem")
+                },
+                keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Uri,
+                        imeAction = ImeAction.Next
+                )
         )
         TextField(
-            value = name,
-            onValueChange = state.onNameChange,
-            Modifier.fillMaxWidth(),
-            label = {
-                Text(text = "Nome")
-            },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Next,
-                capitalization = KeyboardCapitalization.Words
-            )
+                value = name,
+                onValueChange = state.onNameChange,
+                Modifier.fillMaxWidth(),
+                label = {
+                    Text(text = "Nome")
+                },
+                keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Next,
+                        capitalization = KeyboardCapitalization.Words
+                )
         )
 
         TextField(
-            value = price,
-            onValueChange = state.onPriceChange,
-            Modifier.fillMaxWidth(),
-            label = {
-                Text(text = "Preço")
-            },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Decimal,
-                imeAction = ImeAction.Next
-            )
+                value = price,
+                onValueChange = state.onPriceChange,
+                Modifier.fillMaxWidth(),
+                label = {
+                    Text(text = "Preço")
+                },
+                keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Decimal,
+                        imeAction = ImeAction.Next
+                )
         )
         TextField(
-            value = description,
-            onValueChange = state.onDescriptionChange,
-            Modifier
-                .fillMaxWidth()
-                .heightIn(min = 100.dp),
-            label = {
-                Text(text = "Descrição")
-            },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                capitalization = KeyboardCapitalization.Sentences
-            )
+                value = description,
+                onValueChange = state.onDescriptionChange,
+                Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 100.dp),
+                label = {
+                    Text(text = "Descrição")
+                },
+                keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        capitalization = KeyboardCapitalization.Sentences
+                )
         )
         Button(
-            onClick = state.onSaveClick,
-            Modifier.fillMaxWidth(),
+                onClick = state.onSaveClick,
+                Modifier.fillMaxWidth(),
         ) {
             Text(text = "Salvar")
         }
@@ -212,12 +165,12 @@ fun ProductFormScreenFilledPreview() {
     AluveryTheme {
         Surface {
             ProductFormScreen(
-                state = ProductFormUiState(
-                    url = "url teste",
-                    name = "nome teste",
-                    price = "123",
-                    description = "descrição teste"
-                )
+                    state = ProductFormUiState(
+                            url = "url teste",
+                            name = "nome teste",
+                            price = "123",
+                            description = "descrição teste"
+                    )
             )
         }
     }
