@@ -6,33 +6,35 @@
 
 Simulação de App para delivery de produtos gerais, como alimentos, bebidas etc.
 
-## ⚒️ Projeto em desenvolvimento
+## 🔨 Funcionalidades do projeto
 
-<!-- ## 🔨 Funcionalidades do projeto
+O App é uma extensão da [versão que utiliza um plain object como state holder](https://github.com/alura-cursos/jetpack-compose-gerenciamento-de-estados). A grande diferença é que mantém os estados com o ViewModel em casos que ocorrem a mudança de configuração do Android.
 
-Indique quais são as funcionalidades e comportamentos do App
+Como funcionalidade visual extra, é possível visualizar a descrição dos produtos filtrados ao realizar o clique, como também, esconder a descrição ao clicar novamente:
 
-Se possível, apresente um exemplo visual do projeto, seja gif, imagens ou vídeo, abaixo segue um exemplo:
-
-![](https://github.com/alura-cursos/android-com-kotlin-personalizando-ui/raw/master/img/amostra.gif)
+![aluvery-dynamic-description](https://user-images.githubusercontent.com/8989346/200887954-54ed61e9-f5d4-4188-92bf-6e8d3620aac2.gif)
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
 **Faça uma lista de tecnologias e técnicas utilizadas (a justificativa e descrição são opcionais)**:
 
-- `Funcionalidade 1`: descrição da funcionalidade 1
-- `Funcionalidade 2`: descrição da funcionalidade 2
-  - `Funcionalidade 2a`: descrição da funcionalidade 2a relacionada à funcionalidade 2
-- `Funcionalidade 3`: descrição da funcionalidade 3
+- `Saveable`: Salvar e recuperar estados do App compatíveis com o Bundle
+- `ViewModel`: State Holder especial que lida com a lógica de negócio e mantém o UI state 
+- `StateFlow` e `MutableStateFlow`: Ferramentas para implementação uma comunicação reativa entre os componentes do App 
 
 ## 📁 Acesso ao projeto
 
-**Indique como é possível baixar ou acessar o código fonte do projeto, seja projeto inicial ou final**
+Você pode [acessar o código fonte do projeto](https://github.com/alura-cursos/jetpack-compose-viewmodel/tree/aula-5) ou [baixá-lo](https://github.com/alura-cursos/jetpack-compose-viewmodel/archive/refs/heads/aula-5.zip).
 
 ## 🛠️ Abrir e rodar o projeto
 
-**Apresente as instruções necessárias para abrir e executar o projeto**
+Após baixar o projeto, você pode abrir com o Android Studio. Para isso, na tela de launcher clique em:
 
-## 📚 Mais informações do curso
+Open an Existing Project (ou alguma opção similar)
+Procure o local onde o projeto está e o selecione (Caso o projeto seja baixado via zip, é necessário extraí-lo antes de procurá-lo)
+Por fim clique em OK
+O Android Studio deve executar algumas tasks do Gradle para configurar o projeto, aguarde até finalizar. Ao finalizar as tasks, você pode executar o App 🏆
+
+<!-- ## 📚 Mais informações do curso
 
 **Faça um CTA (_call to action_) para o curso do projeto**
