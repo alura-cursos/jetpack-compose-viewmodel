@@ -16,8 +16,6 @@ Como funcionalidade visual extra, é possível visualizar a descrição dos prod
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
-**Faça uma lista de tecnologias e técnicas utilizadas (a justificativa e descrição são opcionais)**:
-
 - `Saveable`: Salvar e recuperar estados do App compatíveis com o Bundle
 - `ViewModel`: State Holder especial que lida com a lógica de negócio e mantém o UI state 
 - `StateFlow` e `MutableStateFlow`: Ferramentas para implementação uma comunicação reativa entre os componentes do App 
